@@ -1,0 +1,107 @@
+# Knn.py
+from sklearn import datasets
+from sklearn.neighbors import KNeighborsClassifier
+import numpy as np
+
+
+#distance function()
+X1=[0,0,0,0]
+X2=[0,0,0,0]
+def iris_distance(X1,X2):
+    m=4
+    temp=0
+    for i in range(m):
+        tempd=X1[i]-X2[i]
+        temp+=tempd
+    return temp**0.5
+
+#找到K个neighbors，最近，遍历x_train
+def kneighbors(test,X3,k):
+    knei=[k][2]
+    for i in range(k):
+        knei[i][0]=1000
+  
+    
+    for i in range(len(test)):
+        mix_d=iris_distance(test[i],X3)
+        tem=mix_d
+        num=0
+        for j in range(k):
+            if tem<knei[j][0]:
+                tem=knei[j][0]
+                num=j
+        if tem>mix_d:
+            knei[num][0]=mix_d
+            knei[num][1]=test[i].target
+    return knei
+
+
+def main():
+    iris = datasets.load_iris() #jiazaiyuanweihuashuju
+
+    n_samples,n_features=iris.data.shape
+    print("shape",iris.data.shape)
+    print("target",iris.target.shape)
+    x=iris.data#150个数据
+    print("X:",iris.data)
+    y=iris.target#150个数据的分类
+    print("Y:",iris.target)
+    
+
+
+
+
+    np.random.seed(0)
+
+    indices=np.random.permutation(len(x))
+    print("indices:",indices)
+
+    x_train=x[indices[:-50]]
+    y_train=y[indices[:-50]]
+    print("x_train:",x_train)
+
+    x_test=x[indices[-50:]]
+    y_test=y[indices[-50:]]
+    print("x_test:",x_test)
+    
+    for i in range(len(x_test)):
+        array=kneighbors(x_train,x_test[i],6)
+        count[3]=0
+        for j in range(len(array)):
+            if array[j][1]==0:
+                count[0]++
+            elif array[j][1]==1:
+                count[1]++
+            else:
+                count[-1]++
+       print(count)
+                
+            
+    
+    
+
+                
+    
+    
+    
+
+"""knn=KNeighborsClassifier()
+knn.fit(x_train,y_train)
+
+
+y_predict=knn.predict(x_test)
+print("y_predict:",y_predict)
+
+probility=knn.predict_proba(x_test)
+print("probility:",probility)
+
+neighbors=knn.kneighbors(x_test[-1],5,False)
+score=knn.score(x_test,y_test,sample_weight=None)
+
+print("y_predict:",y_predict)
+
+print("y_teat:",y_test)
+
+print("accuracy:",score)
+print("probility:",probility)"""
+
