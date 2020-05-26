@@ -18,16 +18,13 @@ int main(int argc,char *argv[])
 		printf("%s文件打开失败\n",argv[1]);
 		exit(1);
 	}
-	else
-		printf("yes\n");
 	fseek(pt,0L,0);
 	while(!feof(pt))
 	{
 		temp=fgetc(pt);
-		printf("h\n");
 		if(temp==' '||temp=='\n')
 			signalcount++;
-		if(temp==' '||temp=='\n'||temp==',')
+		if((temp==' '||temp=='\n'||temp==',')&&(tempt!=' ')&&(tempt!=',')&&(tempt!='\n'))
 			wordcount++;
 		tempt=temp;
 	}
