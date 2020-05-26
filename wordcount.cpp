@@ -21,9 +21,11 @@ int main(int argc,char *argv[])
 	fseek(pt,0L,0);
 	while(!feof(pt))
 	{
+		signalcount++;
 		temp=fgetc(pt);
-		if(temp==' '||temp=='\n')
-			signalcount++;
+		if(temp==-1)
+			if(tempt!=' '&&tempt!=','&&tempt!='\n')
+				wordcount++;
 		if((temp==' '||temp=='\n'||temp==',')&&(tempt!=' ')&&(tempt!=',')&&(tempt!='\n'))
 			wordcount++;
 		tempt=temp;
